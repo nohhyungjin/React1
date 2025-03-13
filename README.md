@@ -85,4 +85,40 @@ React의 주 버전은 2, 3년에 한 번씩, 부 버전은 1년에 수차례 �
 React는 front end 개발자의 필수 과목   
 공식문서를 통해 공부할 예정   
 
+### React 개발환경 구축
+Node.js(LTS) 다운로드   
+node -v를 통해 버전 확인   
+npm -v, npx -v : Node Package Manager, Node Package eXecute의 버전 확인   
+node 설치하면 npm과 npx 자동 설치   
+working project 만들기   
+npx create-react-app '프로젝트 이름'으로 설치     
 
+### React Project의 구조 
+my-project: project 이름
+node_modules/: 프로젝트에 설치된 모든 패키지들이 저장되는 폴더, npm install하면 여기에 저장됨
+public/ 정적 파일을 저장   
+  &nbsp;&nbsp;&nbsp;&nbsp;favicon.ico:브라우저 탭에 표시되는 아이콘   
+  &nbsp;&nbsp;&nbsp;&nbsp;index.html: React 앱이 마운트되는 html 파일 <div id="root"></div>가 포함   
+  &nbsp;&nbsp;&nbsp;&nbsp;logo192.png: PWA용 아이콘   
+  &nbsp;&nbsp;&nbsp;&nbsp;logo512.png: PWA용 아이콘   
+  &nbsp;&nbsp;&nbsp;&nbsp;manifest.json: PWA 관련 설정 파일   
+  &nbsp;&nbsp;&nbsp;&nbsp;robots.txt: 검색 엔진 크롤러의 접근을 제어하는 파일   
+src/: React 앱의 주요 코드가 위치하는 폴더   
+  &nbsp;&nbsp;&nbsp;&nbsp;App.css: App.js에 적용되는 스타일   
+  &nbsp;&nbsp;&nbsp;&nbsp;App.js: 메인 컴포넌트   
+  &nbsp;&nbsp;&nbsp;&nbsp;App.test.js: Jest를 사용한 기본 테스트 파일   
+  &nbsp;&nbsp;&nbsp;&nbsp;index.css: 전역 스타일   
+ &nbsp;&nbsp;&nbsp;&nbsp; index.js: React 앱의 진입점. ReactDOM.createRoot를 사용하여 App.js를 렌더링함       
+  &nbsp;&nbsp;&nbsp;&nbsp;logo.svg: 기본 로고 이미지   
+ &nbsp;&nbsp;&nbsp;&nbsp; reportWebVitals.js: 성능 측정 관련 코드   
+ &nbsp;&nbsp;&nbsp;&nbsp; setupTests.js: 테스트 환경 설정 파일   
+.gitignore: Git에 추가하지 않을 파일 목록을 정의   
+package-lock.json: 프로젝트에 설치된 정확한 패키지 버전과 의존성 정보를 기록    
+package.json: 패키지(라이브러리)와 프로젝트 정보를 관리하는 파일    
+README.md:    
+&nbsp;&nbsp;&nbsp;&nbsp;  프로젝트 개요: 프로젝트가 무엇을 하는지 간략히 설명    
+&nbsp;&nbsp;&nbsp;&nbsp;  설치 방법: 프로젝트를 실행하려면 어떻게 해야 하는지, 필요한 환경은 무엇인지 등    
+ &nbsp;&nbsp;&nbsp;&nbsp; 사용법: 프로젝트를 어떻게 사용하는지, 주요 기능은 무엇인지    
+&nbsp;&nbsp;&nbsp;&nbsp;  기여 방법: 프로젝트에 기여하는 방법, 코드 작성 규칙 등    
+ &nbsp;&nbsp;&nbsp;&nbsp; 라이센스: 프로젝트의 라이센스 정보    
+  기타 정보: 프로젝트의 버전, 개발자 연락처, FAQ 등    
