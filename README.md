@@ -98,7 +98,7 @@ my-project: project 이름
 node_modules/: 프로젝트에 설치된 모든 패키지들이 저장되는 폴더, npm install하면 여기에 저장됨
 public/ 정적 파일을 저장   
   &nbsp;&nbsp;&nbsp;&nbsp;favicon.ico:브라우저 탭에 표시되는 아이콘   
-  &nbsp;&nbsp;&nbsp;&nbsp;index.html: React 앱이 마운트되는 html 파일 <div id="root"></div>가 포함   
+  &nbsp;&nbsp;&nbsp;&nbsp;index.html: React 앱이 마운트되는 html 파일 div id="root"가 포함   
   &nbsp;&nbsp;&nbsp;&nbsp;logo192.png: PWA용 아이콘   
   &nbsp;&nbsp;&nbsp;&nbsp;logo512.png: PWA용 아이콘   
   &nbsp;&nbsp;&nbsp;&nbsp;manifest.json: PWA 관련 설정 파일   
