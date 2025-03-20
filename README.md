@@ -85,7 +85,7 @@ package.json에 의존성을 명확히 정의하면, 팀원들이 동일한 환�
 프로젝트에서 사용하지 않는 패키지가 남아 있으면 용량 증가 & 성능 저하   
 package.json만 수정해서 쉽게 관리 가능
 
-| 구분            | package.json                                  | package-lock.json                              |
+| 구분            | package.json                                  | package-lock.json |
 |---------------|---------------------------------|----------------------------------|
 | 역할          | 프로젝트 기본 정보, 의존성 정의     | 설치된 패키지의 정확한 버전 고정  |
 | 내용          | 패키지 이름, 버전, dependencies, scripts 등 포함  | 의존성 트리 및 패키지의 정확한 버전 기록  |
@@ -117,18 +117,18 @@ node module을 다시 설치해야 하는 경우
    4. 팀 프로젝트에서 다른 팀원이 이상한 상태로 package-lock.json을 업데이트 했을 때
 
 ### React 홈페이지
-文A 버튼 눌러서 한국어로 바꾸면 쉽게 볼 수 있음
-버전 19가 최신임 react.dev
+文A 버튼 눌러서 한국어로 바꾸면 쉽게 볼 수 있음   
+버전 19가 최신임 react.dev   
 
 #### 개요
-React는 component 단위로 개발하여 레고를 조립하듯이 앱을 완성
-component는 작은 기능을 실행할 수 있는 하나의 모듈
-공식 사이트의 홈에는 component가 어떻게 사용되는지 설명하고 있음
-component의 조립 과정이 중요
+React는 component 단위로 개발하여 레고를 조립하듯이 앱을 완성   
+component는 작은 기능을 실행할 수 있는 하나의 모듈   
+공식 사이트의 홈에는 component가 어떻게 사용되는지 설명하고 있음   
+component의 조립 과정이 중요   
 
 #### Component를 사용한 유저 인터페이스 생성
-React를 사용하면 component라고 하는 개별 조각으로 사용자 인터페이스를 구축할 수 있음
-Video, Thumbnail 및 LikeButton이라는 react component를 생성해서 조립
+React를 사용하면 component라고 하는 개별 조각으로 사용자 인터페이스를 구축할 수 있음   
+Video, Thumbnail 및 LikeButton이라는 react component를 생성해서 조립   
 
 #### Component를 작성하는 JavaScript와 Markup
 React component는 JavaScript 함수   
