@@ -1,6 +1,68 @@
-# 202130113 노형진 2주차 React1 수업
+# 202130113 노형진
+## 2025-03-20 3주차
+### React Project의 구조 
+my-project: project 이름
+node_modules/: 프로젝트에 설치된 모든 패키지들이 저장되는 폴더, npm install하면 여기에 저장됨
+public/ 정적 파일을 저장   
+  &nbsp;&nbsp;&nbsp;&nbsp;favicon.ico:브라우저 탭에 표시되는 아이콘   
+  &nbsp;&nbsp;&nbsp;&nbsp;index.html: React 앱이 마운트되는 html 파일 div id="root"가 포함   
+  &nbsp;&nbsp;&nbsp;&nbsp;logo192.png: PWA용 아이콘   
+  &nbsp;&nbsp;&nbsp;&nbsp;logo512.png: PWA용 아이콘   
+  &nbsp;&nbsp;&nbsp;&nbsp;manifest.json: PWA 관련 설정 파일   
+  &nbsp;&nbsp;&nbsp;&nbsp;robots.txt: 검색 엔진 크롤러의 접근을 제어하는 파일   
+src/: React 앱의 주요 코드가 위치하는 폴더   
+  &nbsp;&nbsp;&nbsp;&nbsp;App.css: App.js에 적용되는 스타일   
+  &nbsp;&nbsp;&nbsp;&nbsp;App.js: 메인 컴포넌트   
+  &nbsp;&nbsp;&nbsp;&nbsp;App.test.js: Jest를 사용한 기본 테스트 파일   
+  &nbsp;&nbsp;&nbsp;&nbsp;index.css: 전역 스타일   
+ &nbsp;&nbsp;&nbsp;&nbsp; index.js: React 앱의 진입점. ReactDOM.createRoot를 사용하여 App.js를 렌더링함       
+  &nbsp;&nbsp;&nbsp;&nbsp;logo.svg: 기본 로고 이미지   
+ &nbsp;&nbsp;&nbsp;&nbsp; reportWebVitals.js: 성능 측정 관련 코드   
+ &nbsp;&nbsp;&nbsp;&nbsp; setupTests.js: 테스트 환경 설정 파일   
+.gitignore: Git에 추가하지 않을 파일 목록을 정의   
+package-lock.json: 프로젝트에 설치된 정확한 패키지 버전과 의존성 정보를 기록    
+package.json: 패키지(라이브러리)와 프로젝트 정보를 관리하는 파일    
+README.md:    
+&nbsp;&nbsp;&nbsp;&nbsp;  프로젝트 개요: 프로젝트가 무엇을 하는지 간략히 설명    
+&nbsp;&nbsp;&nbsp;&nbsp;  설치 방법: 프로젝트를 실행하려면 어떻게 해야 하는지, 필요한 환경은 무엇인지 등    
+
+#### node_modules/
+&nbsp;&nbsp;&nbsp;&nbsp;초기 node_module 및 새로 설치하는 패키지가 저장됨. 프로젝트에서 필요한 라이브러리들을 로컬에 저장.
+##### node_modules/ 폴더를 Git에 포함하지 않는 이유
+폴더 크기가 너무 크고, 패키지마다 버전이 다를 수 있음   
+package.json과 package-lock.json(또는 yarn.lock)만 있으면 npm install로 다시 설치할 수 있음   
+그래서 .gitignore 파일에 아래처럼 추가해서 node_modules/ 폴더를 제외하는 게 일반적   
+#### src/
+React 프로젝트의 주요 코드가 위치하는 디렉토리   
+개발 하면서 대부분의 작업이 이루어짐
+
+##### &nbsp;&nbsp;&nbsp;&nbsp; App.js
+메인 컴포넌트로 필요한 서브 컴포넌트를 모아 관리   
+출력을 위해서 index.js로 전달
+##### &nbsp;&nbsp;&nbsp;&nbsp; App.css
+App.js에 적용되는 스타일   
+일반적으로 App.js 컴포넌트의 스타일을 정의
+##### &nbsp;&nbsp;&nbsp;&nbsp; index.css
+index.css는 React 애플리케이션의 전역(Global) 스타일을 설정하는 CSS 파일   
+##### &nbsp;&nbsp;&nbsp;&nbsp; index.js
+index.js는 React 애플리케이션의 시작점(entry point) 역할   
+즉, React 앱을 실행할 때 가장 먼저 실행되는 파일   
+
+### 의존성 관리와 package.json
+#### 의존성?
+의존성(Dependencies) 이란, 프로젝트가 실행되기 위해 필요한 외부 라이브러리 또는 모듈에 의존하여 동작하는 관계   
+예시로 React 프로젝트에서는 react, react-dom 같은 라이브러리가 필요하고, Express 서버에서는 express, mongoose 같은 라이브러리가 필요   
+따라서 이러한 의존성들을 체계적으로 관리할 필요가 있음, 이것이 의존성 관리(Dependency Management)   
+#### package.json?
+package.json은 Node.js 프로젝트의 설정 파일로, 프로젝트의 정보와 함께 사용하는 의존성 목록을 저장하는 역할   
+package.json 주요 역할
+1. 프로젝트의 이름(name), 버전(version), 설명(description) 등의 정보를 저장   
+2. 프로젝트에서 사용 중인 의존성(Dependencies) 목록을 저장   
+3. npm 또는 yarn 명령어 실행 시 사용할 스크립트(Scripts) 명령어 정의
 
 
+<hr>
+## 2025-03-13 2주차
 ## 알아두어야 할 명령어
 
 ls -al : ls는 'list' 현재 디렉토리의 파일과 폴더 목록을 출력, -al에서 a는 'all'으로 숨김 파일도 보여줌, l은 'long format'으로 파일의 자세한 정보(권한, 소유자, 크기, 수정 날짜 등)를 표시   
