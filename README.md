@@ -15,10 +15,10 @@ src/: React 앱의 주요 코드가 위치하는 폴더
   &nbsp;&nbsp;&nbsp;&nbsp;App.js: 메인 컴포넌트   
   &nbsp;&nbsp;&nbsp;&nbsp;App.test.js: Jest를 사용한 기본 테스트 파일   
   &nbsp;&nbsp;&nbsp;&nbsp;index.css: 전역 스타일   
- &nbsp;&nbsp;&nbsp;&nbsp; index.js: React 앱의 진입점. ReactDOM.createRoot를 사용하여 App.js를 렌더링함       
+  &nbsp;&nbsp;&nbsp;&nbsp; index.js: React 앱의 진입점. ReactDOM.createRoot를 사용하여 App.js를 렌더링함       
   &nbsp;&nbsp;&nbsp;&nbsp;logo.svg: 기본 로고 이미지   
- &nbsp;&nbsp;&nbsp;&nbsp; reportWebVitals.js: 성능 측정 관련 코드   
- &nbsp;&nbsp;&nbsp;&nbsp; setupTests.js: 테스트 환경 설정 파일   
+  &nbsp;&nbsp;&nbsp;&nbsp; reportWebVitals.js: 성능 측정 관련 코드   
+  &nbsp;&nbsp;&nbsp;&nbsp; setupTests.js: 테스트 환경 설정 파일   
 .gitignore: Git에 추가하지 않을 파일 목록을 정의   
 package-lock.json: 프로젝트에 설치된 정확한 패키지 버전과 의존성 정보를 기록    
 package.json: 패키지(라이브러리)와 프로젝트 정보를 관리하는 파일    
@@ -60,6 +60,106 @@ package.json 주요 역할
 2. 프로젝트에서 사용 중인 의존성(Dependencies) 목록을 저장   
 3. npm 또는 yarn 명령어 실행 시 사용할 스크립트(Scripts) 명령어 정의
 
+##### package.json의 내용
+dependencies : 실제 코드에서 필요한 패키지,	예시로 express, react    
+devDependencies :	개발 환경에서만 필요한 패키지, 예시로 (테스트, 빌드 도구 등)   
+peerDependencies : 필요한 라이브러리만, 직접 설치하지 않고 사용자에게 설치를 맡기는 경우
+optionalDependencies : 설치가 실패하더라도 프로젝트 실행에 꼭 필요하지 않은 패키지, 해당 패키지가 설치되지 않아도 프로젝트가 정상적으로 작동해야 하는 경우 사용
+
+##### package.json을 유지해야 하는 이유
+프로젝트의 의존성 정보 제공
+버전 범위 설정 가능
+스크립트와 메타데이터 저장
+새로운 패키지 설치 및 관리
+
+#### 의존성을 왜 관리하나요?
+##### 설치가 쉬움
+npm install 또는 yarn install 한 줄로 모든 의존성을 자동 설치 가능   
+특정 버전의 라이브러리를 쉽게 업데이트할 수 있음   
+##### 일관된 개발환경 유지
+개발자마다 다른 버전의 라이브러리를 사용하면 오류 발생 가능성 증가   
+package.json에 의존성을 명확히 정의하면, 팀원들이 동일한 환경에서 개발 가능   
+##### 배포 환경과 개발 환경 분리
+개발 중에만 필요한 패키지(devDependencies)와 배포 시 필요한 패키지(dependencies)를 구분하여 최적화 가능   
+##### 불필요한 코드 관리 (최적화)
+프로젝트에서 사용하지 않는 패키지가 남아 있으면 용량 증가 & 성능 저하   
+package.json만 수정해서 쉽게 관리 가능
+
+| 구분            | package.json                                  | package-lock.json                              |
+|---------------|---------------------------------|----------------------------------|
+| 역할          | 프로젝트 기본 정보, 의존성 정의     | 설치된 패키지의 정확한 버전 고정  |
+| 내용          | 패키지 이름, 버전, dependencies, scripts 등 포함  | 의존성 트리 및 패키지의 정확한 버전 기록  |
+| 업데이트      | 직접 수정 가능 | 직접 수정하지 않으며, npm install 시 자동 업데이트  |
+| 버전 관리      | `^1.0.0`처럼 범위 지정 가능       | `1.0.0`처럼 고정된 버전 유지  |
+| Git 관리      |  |  |
+
+#### node module의 재설치
+node module을 다시 설치해야 하는 경우   
+1. 팀 작업을 하면서 Github으로부터 프로젝트 파일을 clone 했을 경우
+2. 개인이 자신의 프로젝트를 다른 PC 등에서 clone을 받아 계속 개발해야 하는 경우
+3. 프로젝트에 문제가 생겨서 node_module을 다시 설치해야 하는 경우
+
+##### clone을 받은 프로젝트의 경우   
+   다음 명령을 실행하면 package.json과 package-lock.json을 참고하여 패키지를 다시 설치 npm install    
+   node_modules 디렉토리가 자동 생성   
+   설치가 끝나면 프로젝트를 실행 시켜서 정상 동작 확인   
+
+##### 개인이 자신의 프로젝트를 다른 PC 등에서 clone을 받아 계속 개발해야 하는 경우
+   rm -rf node_modules package-lock.json node_modules랑 package-lock.json 삭제   
+   npm cache clean --force 캐시도 깔끔히 삭제   
+   npm install 다시 설치   
+
+##### package-lock.json을 삭제하는 이유
+   1. package-lock.json이 손상되었거나, 잘못된 의존성이 있을 때
+      예시로 패키지를 여러번 업데이트하면서 충돌이 발생한 경우
+      수동으로 package.json을 수정해서 package-lock.json에 영향을 미친 경우
+   3. 최신 버전의 패키지를 다시 받고 싶을 때
+   4. 팀 프로젝트에서 다른 팀원이 이상한 상태로 package-lock.json을 업데이트 했을 때
+
+### React 홈페이지
+文A 버튼 눌러서 한국어로 바꾸면 쉽게 볼 수 있음
+버전 19가 최신임 react.dev
+
+#### 개요
+React는 component 단위로 개발하여 레고를 조립하듯이 앱을 완성
+component는 작은 기능을 실행할 수 있는 하나의 모듈
+공식 사이트의 홈에는 component가 어떻게 사용되는지 설명하고 있음
+component의 조립 과정이 중요
+
+#### Component를 사용한 유저 인터페이스 생성
+React를 사용하면 component라고 하는 개별 조각으로 사용자 인터페이스를 구축할 수 있음
+Video, Thumbnail 및 LikeButton이라는 react component를 생성해서 조립
+
+#### Component를 작성하는 JavaScript와 Markup
+React component는 JavaScript 함수
+조건에 따라 화면을 다르게 표시하려면 if문
+목록을 표시하려면 map()
+→ JS를 이미 알고 있으면 더 쉽게 배울 수 있음
+
+#### 필요한 곳에 상호작용 기능 추가
+React component는 데이터를 수신하고, 화면에 표시해야 하는 내용을 반환
+사용자의 입력을 받아 새로운 데이터를 component에 전달 가능
+이때 React는 상호작용을 통해 얻은 새 데이터로 화면을 업데이트
+
+React 개발은 작은 component를 합쳐서 하나의 새로운 component를 만드는 식
+
+#### full-stack App 개발을 도와주는 React Framework
+React는 라이브러리이기 때문에 component를 조합할 수는 있지만, 라우팅 및 데이터 가져오기 방법 등을 규정하진 않음
+React로 전체 앱을 빌드하려면 Next.js 또는 Remix와 같은 full-stack React Framework를 사용하는 것이 좋음
+사이트의 confs/[slug].js는 Next.js에서 제공하는 routing 방법 중 하나
+React도 하나의 아키텍처
+아키텍처 : 소프트웨어의 구성요소들 사이에서 유기적 관계를 표현하고 소프트웨어의 설계와 업그레이드를 통제하는 지침과 원칙
+따라서 이를 구현하는 Framework를 사용하면, 서버에서 실행되거나 혹은 빌드 중에도 비동기 component에서 데이터를 가져올 수도 있음
+또한 파일이나 데이터베이스에서 데이터를 읽어와서 대화형 component에 전달할 수도 있음
+
+#### 모든 플랫폼에서 최고의 성능을 발휘하는 React
+React를 사용하면 동일한 기술로도 웹 앱과 네이티브 앱을 모두 구축할 수 있음
+각 플랫폼의 고유한 강점을 활용하여 모든 플랫폼에 잘 어울리는 인터페이스를 구현할 수 있음
+
+사람들은 웹 앱 페이지가 빠르게 로드되는 것을 원함
+React를 사용하면 서버에서 데이터를 가져오는 동안에도 HTML을 스트리밍하는 것을 시작할 수 있기 때문에, JS 코드가 로드되기 전에 콘텐츠를 점진적으로 채울 수 있음
+또한 클라이언트 측에서는 표준 웹 API를 사용해서, 렌더링 도중에도 UI를 반응하도록 할 수 있음
+이런 동작들은 사람들이 원하는 빠른 렌더링을 도와줌
 
 <hr>
 ## 2025-03-13 2주차
