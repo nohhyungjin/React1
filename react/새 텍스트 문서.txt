@@ -1,3 +1,0 @@
-React 1
-React v19 사용
-굿
