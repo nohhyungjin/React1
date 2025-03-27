@@ -162,6 +162,64 @@ Profile.css
 
 React에서 조건문을 작성하는 데에는 특별한 문법이 필요하지 않음   
 일반적인 if-else, 삼항 연산자, 이항 연산자 모두 JSX 내부에서 동작   
+```html
+let content;
+if (isLoggedIn) {
+  content = <AdminPanel />;
+} else {
+  content = <LoginForm />;
+}
+return (
+  <div>
+    {content}
+  </div>
+);
+```
+예를 들면, 위 코드는 isLoggedIn이 True면 AdminPanel을 보여주고, False면 LoginForm을 보여주는 것
+
+```html
+<div>
+  {isLoggedIn ? (
+    <AdminPanel />
+  ) : (
+    <LoginForm />
+  )}
+</div>
+```
+삼항 연산자로 더 간단하게 할 수 있음
+
+```html
+<div>
+  {isLoggedIn && <AdminPanel />}
+</div>
+```
+else 분기가 필요하지 않으면 &&로 더 간단하게 할 수 있음
+리스트 렌더링하기
+
+컴포넌트 리스트를 렌더링 하기 위해서는 for문 및 map() 함수같은 JavaScript 기능 사용
+```html
+const products = [
+  { title: 'Cabbage', id: 1 },
+  { title: 'Garlic', id: 2 },
+  { title: 'Apple', id: 3 },
+];
+```
+이걸 map()을 써서 li 항목으로 바꿈
+```html
+const listItems = products.map(product =>
+  <li key={product.id}>
+    {product.title}
+  </li>
+);
+
+return (
+  <ul>{listItems}</ul>
+);
+```
+
+li에 key 속성을 씀   
+목록의 각 항목에 대해, 형제 항목 사이에서 해당 항목을 고유하게 식별하는 문자열 또는 숫자를 전달   
+React는 나중에 항목을 삽입, 삭제 또는 재정렬할 때 어떤 일이 일어났는지 알기 위해 key를 사용
 
 #### 이벤트에 응답하고 화면을 업데이트하는 방법
 #### Component간 정보 교류
