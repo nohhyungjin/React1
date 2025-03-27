@@ -14,8 +14,8 @@ Named Exports
 하나의 파일 안에 여러 개의 component가 있을 때 사용   
 
 Default Exports   
-하나의 파일 안에서 하나의 component만 내보내는 경우 사용   
-component를 사용하는 쪽에서는 어떤 이름을 사용해도 상관 없음   
+하나의 파일 안에서 하나의 component만 내보내는 경우 사용    
+component를 사용하는 쪽에서는 어떤 이름을 사용해도 상관 없음    
 ```html
 App.js
 import MyButton from "./MyButton";
@@ -38,7 +38,7 @@ export default function MyButton() {
     );
 }
 ```
-이 파일이 있을 때, import 이름 from "MyButton.js의 상대 위치 경로"로 App.js에 넣어줄 수 있음
+이 파일이 있을 때, import 이름 from "MyButton.js의 상대 위치 경로"로 App.js에 넣어줄 수 있음   
 
 ```html
 ButtonLib.js
@@ -59,17 +59,17 @@ function Button3() {
 }
 export { Button1, Button2, Button3 };
 ```
-여러 개를 export 할 때 예시
+여러 개를 export 할 때 예시   
 
-component 이름은 항상 대문자로 시작
+component 이름은 항상 대문자로 시작   
 
 #### 마크업과 스타일을 추가하는 방법
-JSX로 마크업 작성하기
-React 프로젝트에서는 편의성을 위해 JSX를 사용
-JSX는 HTML보다 더욱 엄격한 문법을 적용
-JSX에선 <br/>처럼 싱글 태그라도 닫기
-React에서는 component 여러 개를 JSX 태그로 반환 가능
-대신 <div>...</div>처럼 wrapping 해주기
+JSX로 마크업 작성하기   
+React 프로젝트에서는 편의성을 위해 JSX를 사용   
+JSX는 HTML보다 더욱 엄격한 문법을 적용   
+JSX에선 <br/>처럼 싱글 태그라도 닫기   
+React에서는 component 여러 개를 JSX 태그로 반환 가능   
+대신 <div>...</div>처럼 wrapping 해주기   
 
 ```html
 AboutPage.js
@@ -85,20 +85,20 @@ export default function AboutPage() {
 <div>...</div>로 묶어주기
 ```
 
-스타일 추가하기
+스타일 추가하기   
 
-React에서는 className으로 CSS 클래스를 지정
-className은 HTML의 class 속성과 동일한 방식으로 동작
-CSS 규칙은 별도의 CSS 파일에 작성, React는 CSS 파일을 추가하는 방법을 규정하지는 않음
-가장 간단한 방법은 HTML에 <link> 태그 추가하는 법 그러나 정적 페이지를 수정해야 하므로 비추천
+React에서는 className으로 CSS 클래스를 지정   
+className은 HTML의 class 속성과 동일한 방식으로 동작   
+CSS 규칙은 별도의 CSS 파일에 작성, React는 CSS 파일을 추가하는 방법을 규정하지는 않음   
+가장 간단한 방법은 HTML에 <link> 태그 추가하는 법 그러나 정적 페이지를 수정해야 하므로 비추천   
 
 #### 데이터를 표시하는 방법
-데이터 표시하기
+데이터 표시하기   
 
-JSX를 사용하면 JavaScript에 마크업을 넣을 수 있음
-JSX 코드 내에서 JavaScript로 <b>탈출</b>하여 변수나 표현식을 사용
-이 방법을 <b>Escape Back</b>이라고 함
-중괄호를 사용해서 변수나 표현식을 사용자에게 표시
+JSX를 사용하면 JavaScript에 마크업을 넣을 수 있음   
+JSX 코드 내에서 JavaScript로 <b>탈출</b>하여 변수나 표현식을 사용   
+이 방법을 <b>Escape Back</b>이라고 함   
+중괄호를 사용해서 변수나 표현식을 사용자에게 표시   
 ```html
 Profile.js
 const user = {
@@ -120,9 +120,9 @@ export default function Profile() {
     );
 }
 ```
-이런 식으로 중괄호를 사용해서 src, alt, style에 user라는 객체의 정보를 넣을 수 있음
+이런 식으로 중괄호를 사용해서 src, alt, style에 user라는 객체의 정보를 넣을 수 있음   
 
-css 파일 가져오기
+css 파일 가져오기   
 ```html
 Profile.js
 import './Profile.css';
@@ -146,7 +146,7 @@ export default function Profile() {
     );
 }
 ```
-import로 css 파일 가져오기
+import로 css 파일 가져오기   
 
 ```css
 Profile.css
@@ -154,9 +154,15 @@ Profile.css
     border-radius: 50%;;
 }
 ```
+임포트 된 css 파일   
 
+똑같이 App.js 스타일도 App.css를 수정해서 적용할 수 있음   
 
 #### 조건부 렌더링과 목록 렌더링 방법
+
+React에서 조건문을 작성하는 데에는 특별한 문법이 필요하지 않음   
+일반적인 if-else, 삼항 연산자, 이항 연산자 모두 JSX 내부에서 동작   
+
 #### 이벤트에 응답하고 화면을 업데이트하는 방법
 #### Component간 정보 교류
 ## 2025-03-20 3주차
