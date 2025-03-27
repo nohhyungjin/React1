@@ -1,7 +1,93 @@
 # 202130113 노형진
 ## 2025-03-27 4주차
 ### 빠르게 시작하기
+#### Component 생성 및 중첩 방법
+component는 고유한 로직과 모양을 가진 UI의 일부   
+component는 버튼처럼 작을 수도 있고, 전체 페이지처럼 클 수도 있음   
+component는 마크업을 반환(return)하는 JavaScript 함수   
+Nesting은 css 선택자의 중첩 구조를 생각하기   
 
+export default 키워드는 파일 내의 component 중 기본 component를 지정   
+
+export default와 export의 차이   
+Named Exports   
+하나의 파일 안에 여러 개의 component가 있을 때 사용   
+
+Default Exports   
+하나의 파일 안에서 하나의 component만 내보내는 경우 사용   
+component를 사용하는 쪽에서는 어떤 이름을 사용해도 상관 없음   
+```html
+App.js
+import MyButton from "./MyButton";
+
+export default function App() {
+  return (
+    <div>
+    <h1>Hello React!</h1>
+    <MyButton/>
+    </div>
+  );
+}
+```
+이것과,
+```html
+MyButton.js
+export default function MyButton() {
+    return (
+        <button>Click me!</button>
+    );
+}
+```
+이 파일이 있을 때, import 이름 from "MyButton.js의 상대 위치 경로"로 App.js에 넣어줄 수 있음
+
+```html
+ButtonLib.js
+function Button1() {
+    return (
+        <button>Button1</button>
+    )
+}
+function Button2() {
+    return (
+        <button>Button2</button>
+    )
+}
+function Button3() {
+    return (
+        <button>Button3</button>
+    )
+}
+export { Button1, Button2, Button3 };
+```
+여러 개를 export 할 때 예시
+
+component 이름은 항상 대문자로 시작
+
+#### 마크업과 스타일을 추가하는 방법
+JSX로 마크업 작성하기
+React 프로젝트에서는 편의성을 위해 JSX를 사용
+JSX는 HTML보다 더욱 엄격한 문법을 적용
+JSX에선 <br/>처럼 싱글 태그라도 닫기
+React에서는 component 여러 개를 JSX 태그로 반환 가능
+대신 <div>...</div>처럼 wrapping 해주기
+
+```html
+AboutPage.js
+export default function AboutPage() {
+    return (
+        <div>
+            <h1>About</h1>
+            <p>Hello there.<br/>How do you do?</p>
+        </div>
+    );
+}
+
+<div>...</div>로 묶어주기
+```
+#### 데이터를 표시하는 방법
+#### 조건부 렌더링과 목록 렌더링 방법
+#### 이벤트에 응답하고 화면을 업데이트하는 방법
+#### Component간 정보 교류
 ## 2025-03-20 3주차
 ### React Project의 구조 
 my-project: project 이름
