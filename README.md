@@ -84,7 +84,78 @@ export default function AboutPage() {
 
 <div>...</div>로 묶어주기
 ```
+
+스타일 추가하기
+
+React에서는 className으로 CSS 클래스를 지정
+className은 HTML의 class 속성과 동일한 방식으로 동작
+CSS 규칙은 별도의 CSS 파일에 작성, React는 CSS 파일을 추가하는 방법을 규정하지는 않음
+가장 간단한 방법은 HTML에 <link> 태그 추가하는 법 그러나 정적 페이지를 수정해야 하므로 비추천
+
 #### 데이터를 표시하는 방법
+데이터 표시하기
+
+JSX를 사용하면 JavaScript에 마크업을 넣을 수 있음
+JSX 코드 내에서 JavaScript로 <b>탈출</b>하여 변수나 표현식을 사용
+이 방법을 <b>Escape Back</b>이라고 함
+중괄호를 사용해서 변수나 표현식을 사용자에게 표시
+```html
+Profile.js
+const user = {
+    name: "Hedy Lamarr",
+    imageUrl: "https://i.imgur.com/yXOvdOSs.jpg",
+    imageSize: 90,
+};
+
+export default function Profile() {
+    return (
+        <div>
+            <h1>{user.name}</h1>
+            <img
+            src={user.imageUrl}
+            alt={'photo of ' + user.name}
+            style={{width: user.imageSize}}
+            />
+        </div>
+    );
+}
+```
+이런 식으로 중괄호를 사용해서 src, alt, style에 user라는 객체의 정보를 넣을 수 있음
+
+css 파일 가져오기
+```html
+Profile.js
+import './Profile.css';
+
+const user = {
+    name: "Hedy Lamarr",
+    imageUrl: "https://i.imgur.com/yXOvdOSs.jpg",
+    imageSize: 90,
+};
+
+export default function Profile() {
+    return (
+        <div>
+            <h1>{user.name}</h1>
+            <img className='avatar'
+            src={user.imageUrl}
+            alt={'photo of ' + user.name}
+            style={{width: user.imageSize}}
+            />
+        </div>
+    );
+}
+```
+import로 css 파일 가져오기
+
+```css
+Profile.css
+.avatar {
+    border-radius: 50%;;
+}
+```
+
+
 #### 조건부 렌더링과 목록 렌더링 방법
 #### 이벤트에 응답하고 화면을 업데이트하는 방법
 #### Component간 정보 교류
