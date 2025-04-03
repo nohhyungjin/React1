@@ -76,6 +76,85 @@ export default function MyButton() {
 ![버튼이 각각 클릭된 횟수를 저장한다.](./MyButton.png)   
 버튼이 각각 클릭된 횟수를 저장함
 
+각 버튼이 고유한 count state를 “기억”하고 다른 버튼에 영향을 주지 않는다는 점 기억하기
+
+#### Hook 사용하기
+use로 시작하는 함수가 Hook임   
+useState는 React에서 기본 제공하는 내장 Hook임   
+다른 내장 Hook은 공식 API 참고서에서 찾을 수 있음   
+기존 Hook을 조합해서 직접 Hook 만들 수도 있음   
+Hook은 일반 함수보다 더 제한적임   
+컴포넌트나 다른 Hook의 최상단에서만 호출 가능함   
+조건문이나 반복문 안에서 useState 쓰면 안 됨   
+그렇게 하고 싶으면 새 컴포넌트로 분리해서 사용해야 함   
+
+#### 컴포넌트 간에 데이터 공유하기
+
+이전에는 `MyButton`마다 독립적인 `count` state가 있었음   
+그래서 버튼을 클릭해도 **클릭한 버튼의 count만 증가**했음   
+
+하지만 **두 개의 버튼이 같은 count를 공유해야 할 때**가 있음    
+그러려면 **state를 공통 부모 컴포넌트로 올려야 함**    
+
+이 예제에서는 `MyApp`이 부모 역할을 함 
+
+**1. 처음 상태 (`MyApp`이 `count` 관리 X)**  
+```jsx
+export default function MyApp() {
+  return (
+    <div>
+      <h1>Counters that update separately</h1>
+      <MyButton />
+      <MyButton />
+    </div>
+  );
+}
+
+function MyButton() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return <button onClick={handleClick}>Clicked {count} times</button>;
+}
+```
+이 상태에서는 **각 버튼이 독립적인 `count`를 가짐**  
+
+**2. `count`를 `MyApp`에서 관리하도록 변경**  
+```jsx
+export default function MyApp() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    <div>
+      <h1>Counters that update together</h1>
+      <MyButton count={count} onClick={handleClick} />
+      <MyButton count={count} onClick={handleClick} />
+    </div>
+  );
+}
+```
+`count`와 `handleClick`을 **props로 전달**해서 **모든 버튼이 같은 `count`를 공유하도록 변경**  
+
+**3. `MyButton`에서 props 사용하도록 수정**
+```jsx
+function MyButton({ count, onClick }) {
+  return <button onClick={onClick}>Clicked {count} times</button>;
+}
+```
+`count`와 `onClick`을 **부모 컴포넌트(`MyApp`)에서 전달받아 사용함**  
+
+**결과**  
+- 버튼을 클릭하면 **부모(`MyApp`)의 `count`가 증가**  
+- 모든 버튼이 **같은 `count`를 공유**  
+- 이걸 **"state 끌어올리기 (lifting state up)"** 라고 함
+
 
 ## 2025-03-27 4주차
 ### 빠르게 시작하기
