@@ -151,9 +151,10 @@ function MyButton({ count, onClick }) {
 `count`와 `onClick`을 **부모 컴포넌트(`MyApp`)에서 전달받아 사용함**  
 
 **결과**  
-- 버튼을 클릭하면 **부모(`MyApp`)의 `count`가 증가**  
-- 모든 버튼이 **같은 `count`를 공유**  
-- 이걸 **"state 끌어올리기 (lifting state up)"** 라고 함
+
+버튼을 클릭하면 **부모(`MyApp`)의 `count`가 증가**  
+모든 버튼이 **같은 `count`를 공유**  
+이걸 **"state 끌어올리기 (lifting state up)"** 라고 함
 
 
 ## 2025-03-27 4주차
