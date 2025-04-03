@@ -73,7 +73,7 @@ export default function MyButton() {
 }
 ```
 다 적용한 MyButton.js의 모습, 아래는 적용된 이미지   
-![버튼이 각각 클릭된 횟수를 저장한다.](./MyButton.png)   
+![버튼이 각각 클릭된 횟수를 저장한다.](./images/MyButton.png)   
 버튼이 각각 클릭된 횟수를 저장함
 
 각 버튼이 고유한 count state를 “기억”하고 다른 버튼에 영향을 주지 않는다는 점 기억하기
@@ -151,7 +151,7 @@ function MyButton({ count, onClick }) {
 `count`와 `onClick`을 **부모 컴포넌트(`MyApp`)에서 전달받아 사용함**  
 
 **결과**  
-![숫자가 같이 올라간다](./State.png)   
+![숫자가 같이 올라간다](./images/State.png)   
 숫자가 같이 올라간다
 
 버튼을 클릭하면 **부모(`MyApp`)의 `count`가 증가**  
