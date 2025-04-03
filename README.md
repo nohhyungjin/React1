@@ -1,4 +1,79 @@
 # 202130113 노형진
+## 2025-04-03 5주차
+#### 이벤트에 응답하기
+component 내부에 event handler 함수를 선언하면 event에 응답할 수 있음   
+onClick={handleClick}의 끝에 소괄호가 없음   
+함수를 호출하지 말고 전달만 하면 됨   
+React는 사용자가 버튼을 클릭할 때 이벤트 핸들러를 호출함
+```js
+export default function MyButton() {
+  function handleClick() {
+    alert("You clicked me!");
+  }
+
+  return <button onClick={handleClick}>Click me!</button>;
+}
+```
+다 적용한 MyButton.js의 모습
+
+#### 화면 업데이트하기
+컴포넌트가 특정 정보를 “기억”하여 표시하기를 원하는 경우가 종종 있음   
+예를 들어 버튼이 클릭된 횟수를 세고 싶을 수 있음   
+이렇게 하려면 컴포넌트에 state를 추가하면 됨   
+
+
+먼저, React에서 useState를 가져오고,   
+```js
+import { useState } from 'react';
+```
+이제 컴포넌트 내부에 state 변수를 선언할 수 있음
+```js
+function MyButton() {
+  const [count, setCount] = useState(0);
+  // ...
+```
+useState로부터 현재 state (count)와 이를 업데이트할 수 있는 함수(setCount)를 얻을 수 있음   
+이들을 어떤 이름으로도 지정할 수 있지만 [something, setSomething]으로 작성하는 것이 일반적임   
+
+버튼이 처음 표시될 때는 useState()에 0을 전달했기 때문에 count가 0이 됨   
+state를 변경하고 싶다면 setCount()를 실행하고 새 값을 전달
+이 버튼을 클릭하면 카운터가 증가함   
+```js
+function MyButton() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    <button onClick={handleClick}>
+      Clicked {count} times
+    </button>
+  );
+}
+```
+React가 컴포넌트 함수를 다시 호출함  
+이번에는 count가 1이 되고, 그 다음에는 2가 될 것   
+
+같은 컴포넌트를 여러 번 렌더링하면 각각의 컴포넌트는 고유한 state를 얻게 됨   
+각 버튼을 개별적으로 클릭해 보기   
+
+```js
+import { useState } from "react";
+
+export default function MyButton() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return <button onClick={handleClick}>Clicked {count} times</button>;
+}
+```
+다 적용한 MyButton.js의 모습
+
 ## 2025-03-27 4주차
 ### 빠르게 시작하기
 #### Component 생성 및 중첩 방법
