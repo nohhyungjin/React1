@@ -199,11 +199,8 @@ export default function App() {
   );
 }
 ```
-!
+![](./images/CountState2.png)   
 이건 App.js 내부에 CountState2로 정의한 것
-
-
-
 
 ### **Function Component vs Class Component 비교**  
 
