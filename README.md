@@ -157,6 +157,53 @@ function MyButton({ count, onClick }) {
 버튼을 클릭하면 **부모(`MyApp`)의 `count`가 증가**  
 모든 버튼이 **같은 `count`를 공유**  
 이걸 **"state 끌어올리기 (lifting state up)"** 라고 함
+```js
+import MyButton from "./MyButton";
+import { Button1, Button3 } from "./ButtonLib";
+import AboutPage from "./AboutPage";
+import Profile from "./Profile";
+import "./App.css";
+import ShoppingList from "./ShoppingList";
+import { useState } from "react";
+
+function CountState2({ count, onClick }) {
+  return (
+    <div>
+      <button onClick={onClick}>Clicked {count} times, CountState2</button>
+    </div>
+  );
+}
+
+export default function App() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+  return (
+    <div>
+      <h1>Hello React!</h1>
+      <CountState2 count={count} onClick={handleClick} />
+      <CountState2 count={count} onClick={handleClick} />
+      <MyButton count={count} onClick={handleClick} />
+      <MyButton count={count} onClick={handleClick} />
+      &nbsp;&nbsp;
+      <Button1 />
+      &nbsp;
+      <Button3 />
+      <br />
+      <AboutPage />
+      <Profile />
+      <ShoppingList />
+    </div>
+  );
+}
+```
+!
+이건 App.js 내부에 CountState2로 정의한 것
+
+
+
 
 ### **Function Component vs Class Component 비교**  
 
