@@ -72,7 +72,10 @@ export default function MyButton() {
   return <button onClick={handleClick}>Clicked {count} times</button>;
 }
 ```
-다 적용한 MyButton.js의 모습
+다 적용한 MyButton.js의 모습, 아래는 적용된 이미지   
+![버튼이 각각 클릭된 횟수를 저장한다.](./MyButton.png)   
+버튼이 각각 클릭된 횟수를 저장함
+
 
 ## 2025-03-27 4주차
 ### 빠르게 시작하기
