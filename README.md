@@ -158,6 +158,17 @@ function MyButton({ count, onClick }) {
 모든 버튼이 **같은 `count`를 공유**  
 이걸 **"state 끌어올리기 (lifting state up)"** 라고 함
 
+### **Function Component vs Class Component 비교**  
+
+| **비교 항목**      | **Function Component** | **Class Component** |
+|-------------------|----------------------|---------------------|
+| **작성 방식**      | `function` 키워드 사용 | `class` 키워드 사용 |
+| **State 사용**    | `useState` Hook 사용  | `this.state` 사용 |
+| **이벤트 핸들링** | `onClick={handleClick}` | `this.handleClick = this.handleClick.bind(this);` 필요 |
+| **라이프사이클 메서드** | `useEffect` Hook 사용 | `componentDidMount`, `componentDidUpdate`, `componentWillUnmount` |
+| **코드 길이**      | 짧고 간결함 | 상대적으로 길고 복잡함 |
+| **성능**          | React 16.8 이후 더 최적화됨 | 상대적으로 무거움 |
+| **사용 권장 여부** | 추천 (최신 React 스타일) | 잘 사용하지 않음 (옛날 방식) |
 
 ## 2025-03-27 4주차
 ### 빠르게 시작하기
