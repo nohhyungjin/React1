@@ -151,6 +151,8 @@ function MyButton({ count, onClick }) {
 `count`와 `onClick`을 **부모 컴포넌트(`MyApp`)에서 전달받아 사용함**  
 
 **결과**  
+![숫자가 같이 올라간다](./State.png)   
+숫자가 같이 올라간다
 
 버튼을 클릭하면 **부모(`MyApp`)의 `count`가 증가**  
 모든 버튼이 **같은 `count`를 공유**  
