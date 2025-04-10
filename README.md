@@ -97,6 +97,70 @@ X가 있는 보드
 
 ---
 
+#### React 개발자 도구 
+
+- React 개발자 도구로 컴포넌트의 props, state 확인 가능 [React Developer Tools](https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+
+---
+
+#### 게임 완료하기
+
+##### state 끌어올리기
+
+지금까지는,
+- `Square` 컴포넌트가 각자의 state를 갖고 있어서 한번에 확인하기 어려움
+- 그러므로, state를 Square에서 Board로 끌어올리기
+
+---
+
+1. **`Board` 컴포넌트에서 state 관리
+```js
+const [squares, setSquares] = useState(Array(9).fill(null));
+```
+- 9칸짜리 `squares` 배열로 보드 상태를 관리 (모두 null로 초기화)
+
+---
+
+2. `Square`는 state를 갖지 않고 props로만 동작
+```js
+function Square({ value, onSquareClick }) {
+  return (
+    <button className="square" onClick={onSquareClick}>
+      {value}
+    </button>
+  );
+}
+```
+
+---
+
+3. `Board`에서 Square에 prop으로 값 전달
+```js
+<Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+```
+- `handleClick(i)` 호출을 화살표 함수로 감싸서 클릭 시에만 실행되게 함
+
+---
+
+4. `Board`에서 클릭 처리 함수 정의
+```js
+function handleClick(i) {
+  const nextSquares = squares.slice();
+  nextSquares[i] = "X";
+  setSquares(nextSquares);
+}
+```
+- `slice()`로 복사본 생성 → `X` 추가 → `setSquares()`로 state 업데이트
+
+---
+
+따라서,
+- 모든 사각형의 상태를 하나의 곳(Board)에서 관리
+- React 철학에 맞는 단방향 데이터 흐름 유지
+- 리팩토링이나 디버깅이 쉬워짐
+
+---
+
 ## 2025-04-03 5주차
 #### 이벤트에 응답하기
 component 내부에 event handler 함수를 선언하면 event에 응답할 수 있음   
