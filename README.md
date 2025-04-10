@@ -48,7 +48,7 @@ function Square({ value }) {
 8. 이제 다시 숫자 있는 보드가 보임  
 → props를 통해 값 전달, 컴포넌트 재사용 가능해짐
 
-![숫자 있는 보드](./images/BoardWithNumber.png)
+![숫자 있는 보드](./images/BoardWithNumber.png)   
 숫자 있는 보드
 
 ---
@@ -92,6 +92,8 @@ function handleClick() {
 
 - 버튼 안에는 `{value}` 그대로 사용. 클릭 시 "X" 표시됨
 
+![X가 있는 보드](./images/BoardWithX.png)   
+X가 있는 보드   
 
 ---
 
