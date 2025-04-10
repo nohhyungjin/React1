@@ -1,4 +1,93 @@
 # 202130113 노형진
+## 2025-04-10 6주차
+### 틱택토 만들기
+#### props를 통해 데이터 전달하기
+
+- 사각형 클릭 시 값을 변경해야 하는 상황   
+- 기존 방법으론 `<button>` 9개 다 복붙해야 해서 비효율적  
+- React 컴포넌트 구조 활용해 중복 제거 가능
+
+---
+
+1. `Square` 컴포넌트 따로 만듦  
+```jsx
+function Square() {
+  return <button className="square">1</button>;
+}
+```
+
+2. `Board` 컴포넌트는 JSX로 `<Square />` 9개 렌더링  
+   대문자로 시작해야 사용자 정의 컴포넌트로 인식됨
+
+3. 이렇게 하면 숫자가 다 "1"로 나옴  
+   → 각 칸에 다른 값 넣으려면 `props` 사용해야 함
+
+---
+
+4. `Square`에서 `props.value` 받아서 표시하도록 수정  
+```jsx
+function Square({ value }) {
+  return <button className="square">{value}</button>;
+}
+```
+
+5. `value` 변수로 인식되게 하려면 중괄호 `{}` 필요  
+   → 그냥 `value` 쓰면 문자열 `"value"`로 나옴
+
+   현재는 `Board`에서 value를 안 넘겨줘서 빈 보드로 보임
+
+---
+
+7. `Board`에서 `Square`에 각각 `value` prop 넘겨줌  
+```jsx
+<Square value="1" />
+<Square value="2" />
+...
+```
+
+8. 이제 다시 숫자 있는 보드가 보임  
+→ props를 통해 값 전달, 컴포넌트 재사용 가능해짐
+
+#### 사용자와 상호작용하는 컴포넌트 만들기
+
+- Square를 클릭했을 때 동작 추가하려 함  
+- 먼저 `handleClick` 함수 만들어 `onClick`으로 연결  
+```jsx
+function handleClick() {
+  console.log('clicked!');
+}
+```
+
+- 클릭 시 콘솔에 "clicked!" 뜰 거고, 여러 번 눌러도 콘솔 줄 안 늘고, 숫자만 증가함  
+- 로컬 환경이면 크롬 기준 `Shift + Ctrl + J`로 콘솔 열어야 함
+
+---
+
+- 이제 클릭 상태 기억해서 `"X"` 표시하게 만들 계획  
+- React의 `useState` 훅 사용함  
+```js
+import { useState } from 'react';
+```
+
+- Square 내부에서 state 선언  
+```jsx
+const [value, setValue] = useState(null);
+```
+
+- 더 이상 `props` 안 씀 → `Board`에서 `Square`에 넘기던 `value` prop 삭제
+
+---
+
+- 클릭하면 `value`를 `'X'`로 바꿈  
+```jsx
+function handleClick() {
+  setValue('X');
+}
+```
+
+- 버튼 안에는 `{value}` 그대로 사용. 클릭 시 "X" 표시됨
+
+---
 ## 2025-04-03 5주차
 #### 이벤트에 응답하기
 component 내부에 event handler 함수를 선언하면 event에 응답할 수 있음   
