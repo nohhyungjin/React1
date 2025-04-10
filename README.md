@@ -48,6 +48,11 @@ function Square({ value }) {
 8. 이제 다시 숫자 있는 보드가 보임  
 → props를 통해 값 전달, 컴포넌트 재사용 가능해짐
 
+![숫자 있는 보드](./images/BoardWithNumber.png)
+숫자 있는 보드
+
+---
+
 #### 사용자와 상호작용하는 컴포넌트 만들기
 
 - Square를 클릭했을 때 동작 추가하려 함  
@@ -87,7 +92,9 @@ function handleClick() {
 
 - 버튼 안에는 `{value}` 그대로 사용. 클릭 시 "X" 표시됨
 
+
 ---
+
 ## 2025-04-03 5주차
 #### 이벤트에 응답하기
 component 내부에 event handler 함수를 선언하면 event에 응답할 수 있음   
@@ -101,7 +108,7 @@ export default function MyButton() {
   }
 
   return <button onClick={handleClick}>Click me!</button>;
-}
+}0
 ```
 다 적용한 MyButton.js의 모습
 
