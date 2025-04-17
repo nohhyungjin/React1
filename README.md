@@ -115,6 +115,69 @@ React 명명 규칙 팁
 
 ##### 불변성이 왜 중요할까요
 
+데이터를 변경하는 방법은 두 가지가 있음
+
+- 데이터를 직접 변경하기
+- 복사본의 데이터를 변경하기
+
+이렇게 불변성을 이용하면 몇 가지 이점이 있음
+
+- 이 앱의 시간 여행 기능에 해당하는, 특정 작업 취소 및 롤백 기능 구현이 쉬움
+- 성능 최적화에 유리
+- 예측 가능한 코드 작성 가능
+
+##### 순서 정하기
+
+이제 X가 아니라 교대로 O가 나올 수 있도록 만들기
+
+다른 state를 만들어서 구현
+
+```js
+function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  // ...
+}
+```
+```js
+export default function Board() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = "X";
+    } else {
+      nextSquares[i] = "O";
+    }
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
+  }
+
+  return (
+    //...
+  );
+}
+```
+클릭할 때마다 xIsNext가 true false를 왔다갔다 하면서, 교대로 X와 O가 나오게 함
+
+그런데 이렇게 했더니 같은 사각형을 클릭해도 바뀜
+
+클릭한 사각형에 이미 X나 O가 있는지 확인하면 해결
+
+```js
+function handleClick(i) {
+  if (squares[i]) {
+    return;
+  }
+  const nextSquares = squares.slice();
+  //...
+}
+```
+사각형에 뭔가 있으면 바로 return, 이렇게 중복 클릭을 방지
+
 
 
 ## 2025-04-10 6주차
