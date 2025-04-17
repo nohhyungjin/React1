@@ -70,7 +70,10 @@ export default function Board() {
   );
 };
 ```
+<img src="./images/BoardWithX2.png" alt="X가 있는 보드" width="100" />
+클릭했을 때 X가 잘 생성된다
 
+그리고 모든 state 관리가 사각형이 아닌 Board 컴포넌트에서 처리된다
 
 ---
 ## 2025-04-10 6주차
