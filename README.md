@@ -181,6 +181,108 @@ function handleClick(i) {
 <img src="./images/BoardWithXO.png" alt="XO가 있는 보드" width="100" />
 X랑 O가 잘 보인다
 
+##### 승자 결정하기
+
+이제 X든 O든 3개가 이어지면 이겼다고 보여주기
+
+```js
+export default function Board() {
+  //...
+}
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+```
+
+lines에 0,1,2 같은 가로, 0,3,6 같은 세로, 0,4,8 같은 대각선을 만들어주고 if문으로 3개가 이어졌는지 확인
+
+이 함수는 Board 앞이든 뒤든 어디에 배치되도 상관없음
+
+```js
+function handleClick(i) {
+  if (squares[i] || calculateWinner(squares)) {
+    return;
+  }
+  const nextSquares = squares.slice();
+  //...
+}
+```
+
+클릭할 때마다 확인할 수 있게 넣어주고, 만약 승자가 결정되면 똑같이 바로 return
+
+```jsx
+export default function Board() {
+  // ...
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
+  }
+
+  return (
+    <>
+      <div className="status">{status}</div>
+      <div className="board-row">
+        // ...
+  )
+}
+```
+
+승자가 결정됐을 때 누가 이겼다고 표시하기 위해 `status` 추가
+
+if문으로 Winner가 누군지 보여주고, 안 끝났을 때는 Next player가 누군지 보여주기
+
+**구조 분해 할당**
+객체나 배열에서 데이터 전체가 아니라 일부만 필요할 때 사용할 수 있는 문법
+
+```js
+const arr = [1, 2, 3];
+
+const [a, b, c] = arr;
+
+console.log(a); // 1
+console.log(b); // 2
+console.log(c); // 3
+```
+
+배열에서 바로 값을 가져와서 변수에 할당함
+
+```js
+const user = {
+  name: "Alice",
+  age: 25,
+};
+
+const { name, age } = user;
+
+console.log(name); // "Alice"
+console.log(age);  // 25
+```
+
+객체에서도 바로 값을 가져와서 변수에 할당함
+
+`const [a, b, c] = lines[i];`
+
+위 예제에서 이렇게 사용됐음
 
 ## 2025-04-10 6주차
 ### 틱택토 만들기
