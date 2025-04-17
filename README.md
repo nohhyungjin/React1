@@ -77,10 +77,6 @@ export default function Board() {
 
 ---
 
-요약 정리:
-
----
-
 컴포넌트 간 역할 분담  
 - **Board**가 모든 상태(state)를 관리함  
 - **Square**는 props를 통해 값(`value`)과 클릭 이벤트 핸들러(`onSquareClick`)를 전달받음  
