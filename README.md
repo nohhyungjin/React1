@@ -178,6 +178,8 @@ function handleClick(i) {
 ```
 사각형에 뭔가 있으면 바로 return, 이렇게 중복 클릭을 방지
 
+<img src="./images/BoardWithXO.png" alt="XO가 있는 보드" width="100" />
+X랑 O가 잘 보인다
 
 
 ## 2025-04-10 6주차
