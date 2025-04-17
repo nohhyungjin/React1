@@ -1,4 +1,78 @@
 # 202130113 노형진
+## 2025-04-17 7주차
+### 틱택토 만들기(이어서)
+#### 게임 완료하기(이어서)
+##### state 끌어올리기(이어서)
+- handleClick 함수는 왼쪽 위 사각형만 가능하도록 하드 코딩 되어 있음
+- 같은 함수로 모든 사각형을 컨트롤할 수 있도록 파라미터로 i를 추가
+```js
+export default function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const nextSquares = squares.slice();
+    nextSquares[i] = "X";
+    setSquares(nextSquares);
+  }
+
+  return (
+    // ...
+  )
+}
+```
+그리고 실행해보면...
+```jsx
+<Square value={squares[0]} onSquareClick={handleClick(0)} />
+```
+```Console
+Too many re-renders. React limits the number of renders to prevent an infinite loop.
+```
+
+오류가 남
+
+handleClick(0)처럼 괄호를 붙여 함수를 즉시 실행하면 컴포넌트 렌더링 도중 state를 변경하여 **무한 렌더링 루프 발생**
+
+그래서 JSX에서 onSquareClick={() => handleClick(i)}처럼 화살표 함수(Arrow Function)를 사용해 클릭 시점에만 실행되도록 함
+```jsx
+export default function Board() {
+  // ...
+  return (
+    <>
+      <div className="board-row">
+        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+        // ...
+  );
+}
+```
+잘 작동하니까 나머지 사각형도 수정
+
+```jsx
+export default function Board() {
+  // ...
+  return (
+    <>
+      <div className="board-row">
+        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
+        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
+        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+      </div>
+      <div className="board-row">
+        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
+        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+      </div>
+      <div className="board-row">
+        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
+        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
+        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+      </div>
+    </>
+  );
+};
+```
+
+
+---
 ## 2025-04-10 6주차
 ### 틱택토 만들기
 #### props를 통해 데이터 전달하기
