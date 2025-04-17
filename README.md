@@ -76,6 +76,47 @@ export default function Board() {
 그리고 모든 state 관리가 사각형이 아닌 Board 컴포넌트에서 처리된다
 
 ---
+
+요약 정리:
+
+---
+
+컴포넌트 간 역할 분담  
+- **Board**가 모든 상태(state)를 관리함  
+- **Square**는 props를 통해 값(`value`)과 클릭 이벤트 핸들러(`onSquareClick`)를 전달받음  
+- 클릭 시, Square → Board로 이벤트가 전달되어 상태 변경 요청이 이루어짐
+
+
+
+클릭 이벤트 흐름  
+1. 사용자가 왼쪽 위 사각형 클릭  
+2. `Square`의 `<button>`이 `onClick`으로 받은 함수 실행  
+3. 해당 함수는 `Board`에서 props로 전달한 `onSquareClick()` (즉, `() => handleClick(0)`)  
+4. `handleClick(0)` → `squares[0]`을 `"X"`로 업데이트  
+5. 상태가 바뀌어 `Board` 및 자식 컴포넌트들 전체가 리렌더링  
+6. 해당 사각형에 `"X"` 표시됨
+
+
+
+React 명명 규칙 팁  
+- 이벤트 prop: `onSomething` (`onClick`, `onChange`, `onSquareClick` 등)  
+- 이벤트 핸들러 함수: `handleSomething` (`handleClick`, `handleSubmit` 등)  
+- DOM의 `onClick`은 특별한 prop이며, 사용자 정의 prop는 이름을 자유롭게 정할 수 있음
+
+---
+
+요점  
+- **Board가 상태를 중앙에서 관리**, **Square는 단순히 표시하고 클릭 전달**  
+- 클릭 시 인덱스를 기반으로 상태 변경  
+- 상태 변화 → 자동 리렌더링  
+- **React의 명명 규칙과 prop 흐름 이해**가 중요  
+
+--- 
+
+##### 불변성이 왜 중요할까요
+
+
+
 ## 2025-04-10 6주차
 ### 틱택토 만들기
 #### props를 통해 데이터 전달하기
