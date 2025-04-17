@@ -280,6 +280,29 @@ console.log(age);  // 25
 
 위 예제에서 이렇게 사용됐음
 
+#### 시간여행 추가하기
+
+이제 게임에서 이전 수로 돌아갈 수 있도록 만들기
+
+##### 이동 히스토리 저장하기
+
+앞서 불변성을 위해 slice로 복사본을 만들어서 저장했음
+따라서 history라는 새로운 배열을 만들어서 거기에 과거의 수들을 저장
+
+```js
+[
+  // Before first move
+  [null, null, null, null, null, null, null, null, null],
+  // After first move
+  [null, null, null, null, 'X', null, null, null, null],
+  // After second move
+  [null, null, null, null, 'X', null, null, null, 'O'],
+  // ...
+]
+```
+
+
+
 ## 2025-04-10 6주차
 ### 틱택토 만들기
 #### props를 통해 데이터 전달하기
