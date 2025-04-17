@@ -251,7 +251,7 @@ export default function Board() {
 
 if문으로 Winner가 누군지 보여주고, 안 끝났을 때는 Next player가 누군지 보여주기
 
-**구조 분해 할당**
+**구조 분해 할당**  
 객체나 배열에서 데이터 전체가 아니라 일부만 필요할 때 사용할 수 있는 문법
 
 ```js
