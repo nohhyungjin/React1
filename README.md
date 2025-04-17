@@ -301,7 +301,73 @@ console.log(age);  // 25
 ]
 ```
 
+##### 한 번 더 state 끌어올리기
 
+과거에 두었던 수들의 목록을 만들기 위해 새로운 컴포넌트 `Game` 생성  
+
+```jsx
+function Board() {
+  // ...
+}
+
+export default function Game() {
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board />
+      </div>
+      <div className="game-info">
+        <ol>{/*TODO*/}</ol>
+      </div>
+    </div>
+  );
+}
+```
+
+이제 `Board` 컴포넌트에서 `Game` 컴포넌트로 `state`를 끌어올릴 거라서, `export default`를 `Game`에 붙여줌  
+
+```jsx
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  // ...
+```
+
+두었던 수들을 기록하기 위해 state 추가  
+
+```jsx
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+  // ...
+```
+
+마지막 사각형의 배열을 읽어서 현재 수에 대한 사각형 렌더링
+
+```jsx
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    // TODO
+  }
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        //...
+  )
+}
+```
+
+게임을 업데이트할 때 호출할 `handlePlay` 생성  
+`xIsNext`, `currentSquares`, `handlePlay`를 Board 컴포넌트에 props로 전달
+
+`App.js`에서 `import`할 것도 `Board`가 아니라 `Game`으로 바꾸기
 
 ## 2025-04-10 6주차
 ### 틱택토 만들기
