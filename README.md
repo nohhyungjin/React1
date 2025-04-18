@@ -88,6 +88,66 @@ export default function Game() {
 UI로 잘 보여준다
 
 ---
+##### 과거 움직임 보여주기
+
+이제 이전에 두어진 수를 목록으로 보여줄 수 있도록 만들기
+
+`history`에 저장해놨으니까, `map`을 이용해서 React 엘리먼트 배열로 만들어서 사용하기
+
+```jsx
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpTo(nextMove) {
+    // TODO
+  }
+
+  const moves = history.map((squares, move) => {
+    let description;
+    if (move > 0) {
+      description = 'Go to move #' + move;
+    } else {
+      description = 'Go to game start';
+    }
+    return (
+      <li>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+      </div>
+      <div className="game-info">
+        <ol>{moves}</ol>
+      </div>
+    </div>
+  );
+}
+```
+
+- `map`을 사용해서 `history`의 각 항목을 `<button>`으로 변환  
+- 버튼 클릭 시 jumpTo(move)가 호출되어 해당 시점으로 점프
+- `<ol>{moves}</ol>`로 출력
+
+콘솔에 이렇게 뜨는데,
+```console
+경고: 배열 또는 반복자의 각 자식 요소는 고유한 “key” 속성을 가져야 합니다. `Game`의 렌더 메서드를 확인하세요.
+```
+React는 목록을 렌더링할 때 각 항목을 추적하기 위해 고유한 key 값이 필요함  
+→ 없으면 성능 저하 및 잘못된 렌더링 가능성
+
+
 
 ## 2025-04-17 7주차
 ### 틱택토 만들기(이어서)
