@@ -250,7 +250,44 @@ export default function Game() {
   // ...
 }
 ```
+---
 
+##### 최종 정리
+
+`currentMove`가 짝수일 때는 `xIsNext === true`가 되고, `currentMove`가 홀수일 때는 `xIsNext === false`가 됨  
+굳이 state 두 개 다 저장할 필요 없으니까 하나는 지움
+
+```jsx
+export default function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  }
+
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+  }
+  // ...
+}
+```
+
+#### 마무리
+
+이제 다 만들었음
+
+1. 현재 이동에 대해서만 버튼 대신 “당신은 #번째 순서에 있습니다…”를 표시해 보세요.
+2. Board를 하드 코딩 하는 대신 두 개의 루프를 사용하여 사각형을 만들도록 다시 작성해 보세요.
+3. 동작을 오름차순 또는 내림차순으로 정렬할 수 있는 토글 버튼을 추가해 보세요.
+4. 누군가 승리하면 승리의 원인이 된 세 개의 사각형을 강조 표시해 보세요. (아무도 승리하지 않으면 무승부라는 메시지를 표시하세요. )
+5. 이동 히스토리 목록에서 각 이동의 위치를 형식(열, 행)으로 표시해 보세요.
+
+연습을 더 하고 싶으면 이런 기능도 구현해보라고 써있음
 
 ## 2025-04-17 7주차
 ### 틱택토 만들기(이어서)
