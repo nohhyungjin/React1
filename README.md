@@ -1,4 +1,91 @@
 # 202130113 노형진
+## 2025-04-18 8주차
+### 틱택토 만들기(이어서)
+#### 시간여행 추가하기(이어서)
+##### 한 번 더 state 끌어올리기(이어서)
+```jsx
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const currentSquares = history[history.length - 1];
+
+  function handlePlay(nextSquares) {
+    // TODO
+  }
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        //...
+  )
+}
+```
+onPlay로 줬으니까 Board에도 onPlay로 받도록 추가해줘야 함
+
+```js
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    //...
+  }
+  // ...
+}
+```
+
+```js
+function Board({ xIsNext, squares, onPlay }) {
+  function handleClick(i) {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = "X";
+    } else {
+      nextSquares[i] = "O";
+    }
+    onPlay(nextSquares);
+  }
+  //...
+}
+```
+
+원래 `Board`가 `useState` 두 개를 이용했지만 이제 `Game`이 대신 하고, `props`로 제어하게 됨
+
+마지막으로 `Game` 안에 있는 `handlePlay`까지 만들어주면 잘 작동할 것임  
+handlePlay가 해줘야 하는 것은,
+- 새로운 보드 상태(nextSquares)를 history 배열에 추가
+- 다음 차례 플레이어를 결정하기 위해 xIsNext 값을 반전
+
+```js
+export default function Game() {
+  //...
+  function handlePlay(nextSquares) {
+    setHistory([...history, nextSquares]);
+    setXIsNext(!xIsNext);
+  }
+  //...
+}
+```
+
+여기서 사용한 방법이
+
+`[...]` 전개 연산자(spread operator):
+
+`history`의 기존 항목들을 새 배열에 복사
+
+맨 뒤에 `nextSquares`를 추가
+
+`setHistory(...):`
+
+이 새로운 배열로 `history` 상태를 갱신 → 컴포넌트 리렌더링 유도
+
+`setXIsNext(!xIsNext):`
+
+현재 차례를 반전시켜 다음 턴을 준비
+
+
+
 ## 2025-04-17 7주차
 ### 틱택토 만들기(이어서)
 #### 게임 완료하기(이어서)
