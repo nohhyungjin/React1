@@ -152,6 +152,105 @@ React는 목록을 렌더링할 때 각 항목을 추적하기 위해 고유한 
 <img src="./images/BoardWithHistory.png" alt="목록이 있는 보드" width="100" />
 어쨌든 잘 보인다
 
+---
+
+##### Key 선택하기
+
+**React의 `key`란?**
+- **React가 리스트를 효율적으로 렌더링**하기 위해 사용하는 **특별한 속성**
+- 각 항목을 고유하게 식별해서 **변경, 추가, 제거를 정확하게 처리**함
+
+---
+
+**동작 방식**
+1. 리스트가 업데이트되면 React는 각 항목의 `key`를 비교함
+2. 이전 리스트와 **key가 일치**하면:
+   - 기존 컴포넌트 유지 (state도 유지됨)
+3. **key가 새로 생겼다면**:
+   - 새로운 컴포넌트 생성
+4. **key가 없어졌다면**:
+   - 해당 컴포넌트 제거
+
+---
+
+**왜 중요한가?**
+- `key`가 있어야 React가 **컴포넌트를 다시 만들지 않고 재사용**할 수 있음
+- key가 바뀌면 **컴포넌트가 제거되고 새로 생성되며, state도 초기화**됨
+- 성능과 사용자 경험에 큰 영향
+
+---
+
+**주의사항**
+- `key`는 컴포넌트 **형제 사이에서만 고유**하면 충분함 (전역 X)
+- `props`처럼 보이지만 **컴포넌트 내부에서는 접근할 수 없음**
+- 배열 인덱스를 `key`로 사용하는 것은 **권장되지 않음**
+  - 순서 변경이나 항목 삽입 시 **잘못된 재렌더링** 발생 가능
+
+---
+
+##### 시간여행 구현하기
+
+```jsx
+const moves = history.map((squares, move) => {
+  //...
+  return (
+    <li key={move}>
+      <button onClick={() => jumpTo(move)}>{description}</button>
+    </li>
+  );
+});
+```
+그래서 키를 추가해주고,
+
+jumpTo를 구현하기 위해 현재 어떤 단계인지 알려줄 `currentMove`라는 새 `state`를 만들어줌
+
+```jsx
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[history.length - 1];
+  //...
+}
+```
+
+그리고 currentMove를 계속 업데이트 하도록 jumpTo를 만들어줌
+
+```jsx
+export default function Game() {
+  // ...
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
+  }
+  //...
+}
+```
+
+이제 과거에 뒀던 수를 클릭하면 그 이후에 뒀던 수는 필요없으니까 지우도록 바꿈
+
+```jsx
+function handlePlay(nextSquares) {
+  const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+  setHistory(nextHistory);
+  setCurrentMove(nextHistory.length - 1);
+  setXIsNext(!xIsNext);
+}
+```
+
+그리고 currentSquares를 굳이 마지막 동작을 불러오는 게 아니라 currentMove라고 현재 상태를 보여줄 수 있으니까 바꿈
+
+```jsx
+export default function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[currentMove];
+
+  // ...
+}
+```
+
 
 ## 2025-04-17 7주차
 ### 틱택토 만들기(이어서)
