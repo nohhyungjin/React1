@@ -227,7 +227,7 @@ export default function Game() {
 }
 ```
 
-이제 과거에 뒀던 수를 클릭하면 그 이후에 뒀던 수는 필요없으니까 지우도록 바꿈
+이제 과거에 뒀던 수를 클릭한 다음, 그때 새로운 수를 두면 그 이후에 뒀던 수는 필요없으니까 지우도록 바꿈
 
 ```jsx
 function handlePlay(nextSquares) {
