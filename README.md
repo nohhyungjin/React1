@@ -149,7 +149,7 @@ Check the render method of `Game`. See https://react.dev/link/warning-keys for m
 React는 목록을 렌더링할 때 각 항목을 추적하기 위해 고유한 key 값이 필요함  
 → 없으면 성능 저하 및 잘못된 렌더링 가능성
 
-<img src="./images/BoardWithHistroy.png" alt="목록이 있는 보드" width="100" />
+<img src="./images/BoardWithHistory.png" alt="목록이 있는 보드" width="100" />
 어쨌든 잘 보인다
 
 
