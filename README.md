@@ -84,7 +84,10 @@ export default function Game() {
 
 현재 차례를 반전시켜 다음 턴을 준비
 
+<img src="./images/BoardWithMessage.png" alt="메시지가 있는 보드" width="100" />
+UI로 잘 보여준다
 
+---
 
 ## 2025-04-17 7주차
 ### 틱택토 만들기(이어서)
