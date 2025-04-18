@@ -142,11 +142,15 @@ export default function Game() {
 
 콘솔에 이렇게 뜨는데,
 ```console
-경고: 배열 또는 반복자의 각 자식 요소는 고유한 “key” 속성을 가져야 합니다. `Game`의 렌더 메서드를 확인하세요.
+Each child in a list should have a unique "key" prop.
+
+Check the render method of `Game`. See https://react.dev/link/warning-keys for more information.
 ```
 React는 목록을 렌더링할 때 각 항목을 추적하기 위해 고유한 key 값이 필요함  
 → 없으면 성능 저하 및 잘못된 렌더링 가능성
 
+<img src="./images/BoardWithHistroy.png" alt="목록이 있는 보드" width="100" />
+어쨌든 잘 보인다
 
 
 ## 2025-04-17 7주차
