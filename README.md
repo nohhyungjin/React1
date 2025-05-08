@@ -33,11 +33,11 @@
 
 계층 구조로 정리한 거
 
-FilterableProductTable
-├── SearchBar
-└── ProductTable
-    ├── ProductCategoryRow
-    └── ProductRow
+FilterableProductTable  
+├── SearchBar  
+└── ProductTable  
+    ├── ProductCategoryRow  
+    └── ProductRow  
 
 ## 2025-04-18 8주차
 ### 틱택토 만들기(이어서)
