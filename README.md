@@ -30,6 +30,15 @@
   * 개별 제품 정보를 표시하는 행
 
 "Name"과 "Price" 헤더는 현재 ProductTable 내부에 포함되어 있지만, 기능이 복잡해지면 ProductTableHeader로 분리 가능
+
+계층 구조로 정리한 거
+
+FilterableProductTable
+├── SearchBar
+└── ProductTable
+    ├── ProductCategoryRow
+    └── ProductRow
+
 ## 2025-04-18 8주차
 ### 틱택토 만들기(이어서)
 #### 시간여행 추가하기(이어서)
