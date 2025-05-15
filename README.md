@@ -124,6 +124,8 @@ state를 적절한 위치에 두는 데이터 흐름 구성"까지 완료
   onChange={(e) => onInStockOnlyChange(e.target.checked)}
 />
 ```
+<img src="./images/changeText.png" alt="검색" width="200" />  
+잘 된다.
 
 ---
 
