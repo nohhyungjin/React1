@@ -1,4 +1,138 @@
 # 202130113 노형진
+## 2025-05-15 11주차
+#### Step 4: State가 어디에 있어야 할 지 정하기
+
+1. 각 state에 대해 다음을 수행:
+
+   * 해당 state를 사용(렌더링)하는 컴포넌트를 찾는다.
+   * 이들을 모두 포괄하는 가장 가까운 공통 부모 컴포넌트를 찾는다.
+   * 보통 그 공통 부모에 state를 두는 것이 적절하다.
+   * 공통 부모가 없다면 새로 컴포넌트를 만들어 상위에 추가할 수 있다.
+
+2. 예제에서 사용된 두 가지 state:
+
+   * `filterText`: 검색어
+   * `inStockOnly`: 체크박스 상태 (재고 있는 상품만 보기)
+
+3. state를 사용하는 컴포넌트:
+
+   * `ProductTable`: 리스트 필터링
+   * `SearchBar`: 입력값 표시
+
+4. 공통 부모:
+
+   * `FilterableProductTable` → 두 컴포넌트 모두 이 컴포넌트의 자식
+
+5. 결정된 state 위치:
+
+   * `FilterableProductTable` 내부에 `useState`로 두 state를 선언함
+
+---
+
+코드 적용
+
+```jsx
+function FilterableProductTable({ products }) {
+  const [filterText, setFilterText] = useState('');
+  const [inStockOnly, setInStockOnly] = useState(false);
+
+  return (
+    <div>
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+      />
+      <ProductTable
+        products={products}
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+      />
+    </div>
+  );
+}
+```
+
+이렇게 하면 `filterText`와 `inStockOnly`가 `SearchBar`와 `ProductTable` 양쪽에 전달되어 렌더링에 사용됨
+
+---
+
+`SearchBar` 컴포넌트가 `filterText`, `inStockOnly` 값을 props로 받아 입력 요소의 값은 보여주지만 변경할 수 없음
+에러 메시지:
+
+  ```
+  You provided a `value` prop to a form field without an `onChange` handler.
+  ```
+* 이유: 입력 요소가 "읽기 전용"이기 때문에 onChange 핸들러가 필요
+
+---
+
+state를 적절한 위치에 두는 데이터 흐름 구성"까지 완료
+이제 `onChange` 이벤트 핸들러를 추가하여 입력값을 상태로 반영하고 업데이트할 수 있게 만들어야 함
+
+#### Step 5: 역 데이터 흐름 추가하기
+
+
+
+1. 기존 데이터 흐름
+
+* React 컴포넌트는 일반적으로 부모 → 자식 방향으로 데이터(props)를 전달
+* 예: `FilterableProductTable` → `SearchBar`, `ProductTable`
+
+2. 문제 상황
+
+* 사용자 입력(input, checkbox)에 반응해 UI를 업데이트해야 하는데,
+* `input`의 `value`가 `filterText` 상태에 고정되어 있으므로,
+* 사용자가 값을 바꿔도 `state`가 바뀌지 않으면 화면도 바뀌지 않음 (입력 무시됨)
+
+3. 해결 방법: 역 데이터 흐름
+
+* `SearchBar`는 자신이 직접 state를 갖지 않음 → 대신 부모의 상태를 변경할 수 있어야 함
+* 이를 위해 `setFilterText`, `setInStockOnly` 함수를 `SearchBar`에 props로 전달함
+* `SearchBar`에서 `onChange` 이벤트 발생 시 이 함수들을 호출하여 부모 상태를 변경
+
+4. **결과
+
+* 사용자 입력에 따라 `FilterableProductTable`의 state가 변경되고,
+* 상태 변화가 다시 props를 통해 자식 컴포넌트로 전달되므로
+* UI가 사용자 입력에 맞춰 자동으로 업데이트됨
+
+---
+
+#### FilterableProductTable
+
+```jsx
+<SearchBar
+  filterText={filterText}
+  inStockOnly={inStockOnly}
+  onFilterTextChange={setFilterText}
+  onInStockOnlyChange={setInStockOnly}
+/>
+```
+
+#### SearchBar
+
+```jsx
+<input
+  type="text"
+  value={filterText}
+  onChange={(e) => onFilterTextChange(e.target.value)}
+/>
+
+<input
+  type="checkbox"
+  checked={inStockOnly}
+  onChange={(e) => onInStockOnlyChange(e.target.checked)}
+/>
+```
+
+---
+
+결론
+
+* React는 명시적인 데이터 흐름을 권장함
+* "역 데이터 흐름"을 구현하려면 상태를 끌어올리고(`lifting state up`), 자식 컴포넌트에서 부모 상태를 변경할 수 있는 함수 props를 전달해야 함
+* 이 방식은 초기 설정은 번거로울 수 있지만, UI의 일관성과 예측 가능성이 높아짐
+
 ## 2025-05-08 10주차
 ### React로 사고하기
 컴포넌트로 나누고 연결하는 방식으로 바꿔서 보겠다는 얘기
