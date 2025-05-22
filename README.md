@@ -68,6 +68,128 @@ RedwoodJS
 추천 시작 도구:
 * Vite, Parcel, RSbuild 같은 빌드 도구
 
+#### 처음부터 React 앱 만들기
+
+React 앱을 처음부터 만들고 싶은 경우
+
+* 기존 프레임워크가 요구사항에 맞지 않거나
+* 자신만의 프레임워크를 만들고 싶거나
+* React의 기초를 배우고 싶을 때
+
+Step 1: 빌드 도구 설치
+
+* `vite`, `parcel`, `rsbuild` 같은 빌드 도구 설치
+* 이 도구들은 다음을 제공함:
+  * 소스 코드를 패키징하고 실행
+  * 개발 서버
+  * 배포용 빌드 기능
+ 
+CRA는 React의 공식 빌더
+
+Vite
+* 빠르고 간결한 개발 환경을 제공하는 모던 웹 빌드 도구
+* React 프로젝트 생성 명령어
+  ```
+  npm create vite@latest my-app -- --template react
+  ```
+
+* 특징
+  * 기본 설정(opinionated defaults)이 잘 구성되어 있음
+  * 빠른 새로고침(Fast Refresh), JSX, Babel/SWC 등 다양한 기능 지원
+  * 다양한 플러그인 생태계 보유
+  * React용 플러그인과 SSR 예제도 제공됨
+  * React Router 프레임워크에서도 Vite를 빌드 도구로 사용 중
+
+Parcel
+
+* 특징
+  초기부터 대규모 앱까지 확장 가능한 개발 친화적 빌드 도구
+
+* 설치 명령어
+
+  ```bash
+  npm install --save-dev parcel
+  ```
+
+* 기본 지원 기능
+  * Fast Refresh
+  * JSX
+  * TypeScript, Flow
+  * CSS 등 스타일링
+
+Rsbuild
+
+* Rspack 기반의 고성능 React 전용 빌드 도구
+
+* 생성 명령어
+  ```bash
+  npx create-rsbuild --template react
+  ```
+
+* 기본 지원 기능
+  * Fast Refresh
+  * JSX
+  * TypeScript
+  * CSS 등 스타일링
+
+Metro for React Native
+
+* Metro는 React Native 전용 JavaScript 번들러
+* iOS와 Android 플랫폼에 대한 번들링을 지원
+* 하지만 Vite, Parcel, Rsbuild에 비해 기능이 부족
+* 따라서 React Native를 꼭 사용해야 하는 경우에만 Metro 사용을 권장
+* 일반적인 React 프로젝트는 Vite, Parcel, Rsbuild로 시작하는 것이 더 적합
+
+---
+
+Step 2 - 공통 애플리케이션 패턴 구축하기
+
+* Vite, Parcel, Rsbuild 같은 빌드 도구는 클라이언트 전용 SPA로 시작하지만, 라우팅, 데이터 패칭, 스타일링 같은 공통 기능은 미 포함
+* 이러한 기능은 React 생태계의 다양한 도구를 활용해 구현 가능
+* 일반적으로 많이 사용되는 도구들이 추천되지만, 자신에게 더 적합한 다른 도구를 선택해도 무방
+
+Routing
+
+* 라우팅은 URL에 따라 어떤 페이지나 콘텐츠를 보여줄지 결정하는 기능
+* 중첩 라우트, 라우트 파라미터, 쿼리 파라미터 등도 다룸
+* 라우팅은 코드 내에서 직접 설정하거나, 폴더/파일 구조 기반으로 정의 가능
+* 라우터는 보통 데이터 패칭, 코드 분할, 페이지 렌더링 전략과 통합되어 작동
+* 추천 라우터:
+  * React Router
+  * TanStack Router
+
+Data Fetching
+
+* 대부분의 앱은 서버나 외부 소스로부터 데이터를 가져옴
+* 로딩 상태, 에러 처리, 캐싱을 올바르게 관리하는 것이 중요하고 복잡
+* 전용 라이브러리를 사용하면 이 과정을 쉽게 관리 가능:
+  * 컴포넌트에서 직접 사용하거나, 라우터 로더 또는 서버 렌더링과 통합 가능
+  * 라우터 로더나 서버에서 미리 데이터를 가져오는(pre-fetching) 방식이 성능상 유리
+
+추천 라이브러리:
+* 일반적인 REST API:
+  * React Query, SWR, RTK Query
+* GraphQL API:
+  * Apollo, Relay
+
+Code-splitting
+
+* 코드 스플리팅은 앱을 작고 독립적인 번들로 나누어 필요할 때만 로드할 수 있게 하는 기법
+* 앱의 기능과 의존성이 늘어날수록 초기 로딩 속도가 느려지는데, 코드 스플리팅은 이를 해결하는 데 도움
+* 하지만 코드 스플리팅이 항상 빠른 건 아님, 예를 들어 차트를 나중에 로드하면 데이터와 차트 코드가 순차적으로 로드(워터폴)되어 오히려 더 느릴 수 있음
+* 경로 기반 코드 스플리팅(route-based splitting)은 데이터 가져오기 및 번들링과 통합하면 초기 로딩 시간과 화면 주요 콘텐츠 렌더링 시간을 줄이는 데 효과적
+
+애플리케이션 성능 개선
+
+* 대부분의 빌드 도구는 SPA(Single Page App)만 기본 지원하지만, 성능 향상을 위해 SSR, SSG, RSC 같은 렌더링 전략을 추가 구현 가능
+
+주요 렌더링 방식
+
+1. SPA: 한 번에 HTML을 불러오고 클라이언트에서 페이지를 동적으로 업데이트. 시작은 간단하지만 초기 로딩이 느릴 수 있음
+2. SSR (Server-Side Rendering): 서버에서 페이지를 렌더링해 보내므로 초기 로딩이 빠름, 설정이 복잡하고 유지보수가 어려울 수 있음
+3. SSG (Static Site Generation): 빌드 시 HTML을 미리 생성. 빠른 로딩 제공하지만 구성이 더 복잡함
+4. RSC (React Server Components): 빌드 시점, 서버 전용, 클라이언트 컴포넌트를 혼합 사용 가능, 높은 전문성이 필요
+
 ## 2025-05-15 11주차
 #### Step 4: State가 어디에 있어야 할 지 정하기
 
