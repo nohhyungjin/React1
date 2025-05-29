@@ -33,6 +33,84 @@ React 앱을 기존 사이트 하위 경로에 통합할 때는 Base Path 설정
 
 이렇게 하면 React 앱이 프레임워크의 모범 사례(Best Practices)를 최대한 활용할 수 있다.
 
+##### 기존 페이지의 일부분에 React 사용하기
+
+기존 웹페이지에 React 컴포넌트 하나만 삽입하고 싶을 때 사용할 수 있는 일반적인 방식
+이는 **Meta(페이스북)**에서도 수년간 사용해 온 방식
+
+통합 절차  
+React 개발 환경 구성
+
+JSX 문법을 사용할 수 있도록 자바스크립트 빌드 환경을 설정
+
+모듈화를 위해 import/export 구문 사용
+
+npm을 통해 react, react-dom 등 필요한 패키지를 설치
+
+기존 페이지에서 컴포넌트 렌더링
+
+React로 만든 컴포넌트를 기존 HTML 요소에 마운트하여 특정 위치에 렌더링
+
+예: ReactDOM.createRoot(document.getElementById('some-element')).render(<MyComponent />)
+
+참고 사항  
+정확한 구현 방식은 기존 페이지의 구조와 빌드 도구에 따라 달라짐
+
+이 접근 방식은 전체 페이지를 React로 교체하지 않고도 React의 장점을 활용할 수 있는 실용적인 방법
+
+1단계: 모듈 자바스크립트 환경 설정하기 - 요약 및 정리
+
+React 컴포넌트를 기존 페이지에 통합하려면 먼저 모듈 기반 자바스크립트 환을 설정해야 함
+
+---
+
+목적
+
+* 각 React 컴포넌트를 파일 단위로 분리할 수 있게 하고,
+* `npm`을 통해 React와 다양한 라이브러리를 손쉽게 설치/활용할 수 있게 함.
+
+---
+
+설정 방법
+
+기존 설정이 있다면
+
+* 이미 `import` 문을 사용하고 있다면 기존 환경을 그대로 사용
+* JSX 문법(`<div />`)에서 문법 오류가 나면, Babel 설정이 필요할 수 있음
+
+  * Babel React preset을 활성화
+
+설정이 없다면
+
+* **Vite**를 이용해 빠르게 모듈 환경 구축
+
+  * Rails, Django, Laravel 등 백엔드 프레임워크와도 쉽게 통합 가능
+
+---
+
+동작 확인하기
+
+1. React 설치:
+
+   ```bash
+   npm install react react-dom
+   ```
+
+2. `index.js` 또는 `main.js` 파일에 아래 코드 추가:
+
+   ```js
+   import { createRoot } from 'react-dom/client';
+
+   document.body.innerHTML = '<div id="app"></div>';
+
+   const root = createRoot(document.getElementById('app'));
+   root.render(<h1>Hello, world</h1>);
+   ```
+
+3. 웹페이지에서 "Hello, world!"가 보이면 설정 성공
+
+---
+
 ## 2025-05-22 12주차
 ### 설치하기
 React를 사용해보고 싶다면, 아무것도 설치할 필요 없이 이 샌드박스에서 이용해볼 수 있다고 함. 예시로 CodeSandbox, StackBlitz, CodePen가 있음.  
