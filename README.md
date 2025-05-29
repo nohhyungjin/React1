@@ -1,4 +1,38 @@
 # 202130113 노형진
+## 2025-05-29 13주차
+#### 기존 프로젝트에 React 추가하기
+기존 프로젝트에 상호작용 요소를 일부 추가하고 싶다면, React로 다시 작성할 필요 없이 기존 스택에 React를 추가하라고 함.  
+**Node.js**를 설치해야 함
+
+##### 기존 웹사이트의 하위 경로 전체에 React 사용하기
+기존 웹사이트(example.com)에서 특정 하위 경로(example.com/some-app/)를 React로 구현하고 싶을 때?
+
+1. React 프레임워크 사용
+Next.js 또는 Gatsby와 같은 React 기반 프레임워크를 사용해 /some-app/ 경로의 앱을 개발
+
+2. Base Path 설정
+프레임워크 설정에서 기본 경로(Base Path) 를 /some-app 으로 설정
+
+예: next.config.js 또는 gatsby-config.js에서 설정
+
+3. 서버 또는 프록시 구성
+서버 또는 프록시 설정을 통해 /some-app/ 하위의 모든 요청을 React 앱이 처리하도록 구성
+
+서버 실행 불가능한 경우
+서버에서 자바스크립트 실행이 불가능하다면,
+
+  * Next.js → next export,
+
+  * Gatsby → 기본 정적 export 기능
+
+ 으로 HTML/CSS/JS 정적 파일을 생성해 /some-app/에서 제공
+
+요점
+
+React 앱을 기존 사이트 하위 경로에 통합할 때는 Base Path 설정, 프록시 설정, 정적 export를 적절히 활용해라.
+
+이렇게 하면 React 앱이 프레임워크의 모범 사례(Best Practices)를 최대한 활용할 수 있다.
+
 ## 2025-05-22 12주차
 ### 설치하기
 React를 사용해보고 싶다면, 아무것도 설치할 필요 없이 이 샌드박스에서 이용해볼 수 있다고 함. 예시로 CodeSandbox, StackBlitz, CodePen가 있음.  
