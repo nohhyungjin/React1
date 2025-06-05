@@ -258,9 +258,77 @@ Setup에선 에디터, 타입스크립트, 브라우저 확장 프로그램, 컴
 
 Learn React는 중급과 고급
 
+---
+
 ### React 프로젝트 배포
 
+#### Github Pages란?
 
+* **GitHub의 정적 웹사이트 무료 호스팅 서비스**
+
+  * `github.io` 도메인 제공 (커스텀 도메인도 가능)
+  * **HTML, CSS, JS 기반 정적 웹사이트**만 가능 (서버 사이드 처리 X)
+* **Public 레포지토리**에서 무료로 사용 가능 (Pro는 Private도 가능)
+
+---
+
+#### React 프로젝트를 Github Pages에 배포하는 방법
+
+##### Github 레포지토리 만들기
+
+* 공개(Public) 레포지토리 생성
+* 로컬 React 프로젝트와 Git 연결
+
+  ```bash
+  git remote add origin https://github.com/사용자명/레포명
+  git push -u origin master
+  ```
+
+##### Github Pages 설정
+
+* 레포지토리 `Settings` > `Pages` 메뉴 진입
+* `Source` 브랜치 임의 선택 후 저장 (예: `master`)
+
+##### gh-pages 라이브러리 설치 및 설정
+
+```bash
+npm install gh-pages --save-dev
+```
+
+* `package.json` 수정:
+
+  ```json
+  "homepage": "https://사용자명.github.io/레포명",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  }
+  ```
+
+##### 배포 명령 실행
+
+```bash
+npm run deploy
+```
+
+* 자동으로 `gh-pages` 브랜치 생성 및 배포
+* 다시 `Settings > Pages`로 가서 `Source`를 `gh-pages` 브랜치로 변경해야 함
+* `gh-pages`로 설정 안 하면 README.md가 뜸
+
+##### 배포 완료 확인
+
+* 초록색 알림이 배포 완료 신호
+* 웹사이트 주소: `https://사용자명.github.io/레포명`
+  → 접속하면 배포된 페이지 확인 가능
+
+---
+
+주의사항
+
+* 배포 직후 바로 반영되지 않으니 잠시 기다리기
+* `gh-pages` 브랜치는 자동 생성되므로 직접 수정하지 말 것
+
+---
 
 ## 2025-05-29 13주차
 #### 기존 프로젝트에 React 추가하기
