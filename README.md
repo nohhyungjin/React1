@@ -1,4 +1,267 @@
 # 202130113 노형진
+## 2025-06-05 14주차
+#### 기존 프로젝트에 React 추가하기
+
+---
+
+기존 HTML 유지, 특정 요소에만 React 렌더링
+
+* 전체 HTML 제거 방식 대신, 특정 요소에 `id` 지정 후 해당 위치에만 React 컴포넌트 렌더링
+* 예: `<nav id="navigation"></nav>`에 React 컴포넌트 삽입
+
+```js
+import { createRoot } from 'react-dom/client';
+
+function NavigationBar() {
+  return <h1>Hello from React!</h1>;
+}
+
+const domNode = document.getElementById('navigation');
+const root = createRoot(domNode);
+root.render(<NavigationBar />);
+```
+
+---
+
+React 점진적 도입
+
+* 버튼, 네비게이션 바 등 작은 요소부터 시작
+* 점차 적용 범위 확장
+* 전체 페이지를 React로 마이그레이션하는 단계로 발전 가능
+
+---
+
+### 설정하기
+#### 에디터 설정하기
+
+---
+
+##### 주요 에디터
+
+* **VS Code**
+
+  * 가장 널리 사용
+  * 다양한 확장(Extensions) 설치 가능
+  * GitHub 등 외부 서비스 연동 지원
+  * 설정 변경 및 기능 추가 용이
+
+* **WebStorm**
+
+  * JavaScript 특화 통합 개발 환경
+
+* **Sublime Text**
+
+  * JSX, TypeScript 지원
+  * 문법 강조, 자동 완성 포함
+
+* **Vim**
+
+  * 효율적인 텍스트 편집기
+  * 대부분의 UNIX 및 macOS 시스템에 기본 포함(vi)
+
+---
+
+##### 에디터 기능 추천
+
+린팅(Linting)
+
+* 실시간 코드 오류 감지
+* ESLint 사용 권장
+
+  * `eslint-plugin-react-hooks` 활성화
+  * `eslint-config-react-app` 프리셋에 포함
+
+포맷팅(Formatting)
+
+* 코드 스타일 자동 정리
+* Prettier 사용 권장
+
+  * 들여쓰기, 따옴표, 공백 등 자동 정리
+  * 저장 시 자동 포맷팅 설정 가능
+
+```bash
+# Prettier 설치 방법
+Ctrl/Cmd + P → ext install esbenp.prettier-vscode → 엔터
+```
+
+```bash
+# 저장 시 자동 포맷 설정
+Ctrl/Cmd + Shift + P → settings → "format on save" 체크
+```
+
+---
+
+팁
+
+* 사용 중인 에디터가 지원하는 기능 확인
+* 확장이 필요한 기능인지 기본 제공 기능인지 구분
+
+---
+
+#### TypeScript 사용하기
+
+---
+
+##### TypeScript 설치
+
+프레임워크별 기본 지원
+
+* 모든 주요 React 프레임워크에서 TypeScript 지원
+
+  * Next.js
+  * Remix
+  * Gatsby
+  * Expo
+
+기존 React 프로젝트에 TypeScript 추가
+
+```bash
+npm install @types/react @types/react-dom
+```
+
+`tsconfig.json` 설정
+
+* `lib`에 `"dom"` 포함
+* `jsx` 옵션 설정 (대부분 `"preserve"` 사용)
+
+---
+
+##### React + TypeScript 컴포넌트 작성
+
+파일 확장자
+
+* JSX 포함 파일은 `.tsx` 사용 필수
+
+기본적인 props 타입 지정
+
+```tsx
+function MyButton({ title }: { title: string }) {
+  return <button>{title}</button>;
+}
+```
+
+interface 또는 type으로 props 정리
+
+```tsx
+interface MyButtonProps {
+  title: string;
+  disabled: boolean;
+}
+
+function MyButton({ title, disabled }: MyButtonProps) {
+  return <button disabled={disabled}>{title}</button>;
+}
+```
+
+---
+
+##### Hooks 예시
+
+공통 사항
+
+* `@types/react`에 내장 Hook 타입 정의 포함
+* 대부분 자동 추론 가능 → 별도 타입 지정 불필요
+* 복잡하거나 유니언 타입일 경우 명시적 타입 지정 추천
+
+---
+
+useState
+
+```tsx
+const [enabled, setEnabled] = useState(false);  
+// enabled: boolean 자동 추론
+```
+
+```tsx
+const [enabled, setEnabled] = useState<boolean>(false);  
+// 명시적 boolean 타입 지정
+```
+
+```tsx
+type Status = "idle" | "loading" | "success" | "error";  
+const [status, setStatus] = useState<Status>("idle");  
+// 유니언 타입 명시
+```
+
+```tsx
+type RequestState =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'success', data: any }
+  | { status: 'error', error: Error };
+
+const [requestState, setRequestState] = useState<RequestState>({ status: 'idle' });  
+// 상태별 데이터 구조화
+```
+
+---
+
+useReducer
+
+* `reducer(state, action)` 형태
+* 초기 state 기반 자동 추론
+* 필요 시 `useReducer<State, Action>` 형태로 타입 인수 지정 가능
+
+---
+
+useContext
+
+* props 전달 없이 데이터 공유
+* `Context.Provider` 생성 시 타입 명시
+* `useContext(MyContext)` 호출 시 타입 추론 가능
+
+---
+
+useMemo
+
+* `useMemo(() => 값, [의존성])`
+* 반환값 타입 자동 추론
+* 필요 시 `useMemo<Type>(() => 값, [의존성])` 형태로 타입 명시 가능
+
+---
+
+useCallback
+
+* `useCallback(() => 함수, [의존성])`
+* 함수 타입 자동 추론
+* 명시하려면 `useCallback<함수타입>(...)` 사용
+
+---
+
+### React 개발자 도구
+
+React 개발자 도구를 사용하여 React 컴포넌트를 검사하고 Props와 State 편집 가능
+
+---
+
+### React 컴파일러
+
+* 새로운 오픈소스 컴파일러
+* 목적: 커뮤니티 피드백 수집 및 자동 최적화
+* 빌드 타임 전용 도구
+* 순수 JavaScript 기반
+* React 규칙 이해 → 코드 재작성 불필요
+
+---
+
+### React1 강의를 끝내며...
+
+react.dev에서 제공하는 공식 문서는 크게 Get Start와 Learn React로 구분
+
+Get Start는 Quick Start, Installation, Setup으로 구성
+
+Quick Start에선 React의 전체 내용을 빠르게 학습, Tic-Tac-Toe 게임 개발을 통해 React의 주요 내용을 프로젝트에 적용하는 법 습득, React 프로젝트의 단계별 과정 설명
+
+Installation에선 React 프로젝트를 시작하거나 기존 프로젝트에 적용하는 방법 설명
+
+Setup에선 에디터, 타입스크립트, 브라우저 확장 프로그램, 컴파일러와 같은 도구와 환경 설정하는 방법 설명
+
+Learn React는 중급과 고급
+
+### React 프로젝트 배포
+
+
+
 ## 2025-05-29 13주차
 #### 기존 프로젝트에 React 추가하기
 기존 프로젝트에 상호작용 요소를 일부 추가하고 싶다면, React로 다시 작성할 필요 없이 기존 스택에 React를 추가하라고 함.  
